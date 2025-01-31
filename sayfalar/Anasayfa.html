@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Elektrik - Alışveriş</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #003554;
+            color: white;
+            text-align: center;
+        }
+        .header {
+            background: #006494;
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .header img {
+            width: 80px;
+        }
+        .nav {
+            background: #003554;
+            padding: 10px;
+        }
+        .nav a {
+            color: #E2E2E2;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .nav a:hover {
+            color: aqua;
+        }
+        .products {
+            background:#107CBF;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 35px;
+            padding: 20px;
+            height: 750px;
+        }
+        .product {
+            background: white;
+            color: black;
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            height: 300px;
+            width: 270px;
+            text-decoration: none;
+        }
+        .product img {
+            width: 100%;
+            height: 75%;
+            border-radius: 10px;
+        }
+        .product:not(.no-hover):hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            background: #006494;
+            padding: 15px;
+            border-radius: 0 0 20px 20px;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons button {
+            background: white;
+            color: #003554;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .auth-buttons button:hover {
+            background: aqua;
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+        .search-bar input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+        .search-bar button {
+            background: white;
+            color: #003554;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .search-bar button:hover {
+            background: aqua;
+        }
+
+        /* Modal Stili */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #006494;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .modal-content button {
+            background: white;
+            color: #003554;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .modal-content button:hover {
+            background: aqua;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: red;
+        }
+        .switch-form {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .switch-form a {
+            color: aqua;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .switch-form a:hover {
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body onload="checkLogin()">
+    <div class="header">
+        <div style="width: 110px;">
+            <a href="Anasayfa.html" style="width: 110px;">
+                <img src="pictures/nasa.png" alt="NASA Elektrik" style="width: 150px;height: 70px">
+            </a>
+        </div>
+        <h1>NASA ELEKTRİK - Beyoğlu Okmeydanı Şube</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Ürün ara...">
+            <button onclick="searchProducts()">Ara</button>
+        </div>
+        <div class="auth-buttons" id="authButtons">
+            <button onclick="openLoginModal()">Giriş Yap</button>
+            <button onclick="openRegisterModal()">Kayıt Ol</button>
+        </div>
+    </div>
+
+    <div class="nav">
+        <a href="anasayfa.html">Anasayfa</a> |
+        <a href="hakkimizda.html">Hakkımızda</a> |
+        <a href="iletisim.html">İletişim</a>
+    </div>
+
+    <div class="products" id="products">
+        <a href="arapuar.html" class="product">
+            <img src="pictures/viarapuar.png" alt="Viko Arapuar">
+            <h3>Viko Arapuar</h3>
+            <p>50 TL</p>
+        </a>
+        <a href="vikoerkfiş.html" class="product">
+            <img src="pictures/vikoerkfiş.png" alt="Viko Mimoza Erkek Fiş">
+            <h3>Viko Mimoza Erkek Fiş</h3>
+            <p>30 TL</p>
+        </a>
+        <a href="vikotprkerkfis.html" class="product">
+            <img src="pictures/vikotprkerkfis.jpg" alt="Viko Topraklı Erkek Fiş">
+            <h3>Viko Topraklı Erkek Fiş</h3>
+            <p>50 TL</p>
+        </a>
+        <a href="panasonicampul.html" class="product">
+            <img src="pictures/panasonicampul.jpg" alt="Panasonic Beyaz Led Ampül">
+            <h3>Panasonic Beyaz Led Ampül</h3>
+            <p><del style="color: red">65 TL</del> 60 TL</p>
+        </a>
+        <a href="temaslikontrol.html" class="product">
+            <img src="pictures/temaskntrl.jpg" alt="Temaslı Kontrol Kalemi">
+            <h3>Temaslı Kontrol Kalemi</h3>
+            <p>40 TL</p>
+        </a>
+        <a href="vikouclufis.html" class="product">
+            <img src="pictures/vikouclufiş.png" alt="Viko Üçlü Priz">
+            <h3>Viko Üçlü Priz</h3>
+            <p>200 TL</p>
+        </a>
+    </div>
+
+    <div class="footer">2016-2025 Nasa Elektrik - AY YAPIM</div>
+
+    <!-- Giriş Modal Penceresi -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2>Giriş Yap</h2>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required>
+                <input type="password" id="loginPassword" placeholder="Şifre" required>
+                <button type="submit">Giriş Yap</button>
+            </form>
+            <div class="switch-form">
+                Hesabınız yok mu? <a onclick="switchToRegister()">Kayıt Ol</a>
+            </div>
+            <div id="loginErrorMessage" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Kayıt Modal Penceresi -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2>Kayıt Ol</h2>
+            <form id="registerForm">
+                <input type="text" id="registerUsername" placeholder="Kullanıcı Adı" required>
+                <input type="password" id="registerPassword" placeholder="Şifre" required>
+                <button type="submit">Kayıt Ol</button>
+            </form>
+            <div class="switch-form">
+                Hesabınız var mı? <a onclick="switchToLogin()">Giriş Yap</a>
+            </div>
+            <div id="registerErrorMessage" class="error-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // Modal penceresini açma fonksiyonları
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').style.display = 'flex';
+        }
+
+        // Modal penceresini kapatma fonksiyonu
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        // Giriş ve kayıt formları arasında geçiş yapma
+        function switchToRegister() {
+            closeModal();
+            openRegisterModal();
+        }
+
+        function switchToLogin() {
+            closeModal();
+            openLoginModal();
+        }
+
+        // Giriş formu gönderildiğinde çalışacak fonksiyon
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('loginUsername').value.trim();
+            let password = document.getElementById('loginPassword').value.trim();
+            let errorMessage = document.getElementById('loginErrorMessage');
+
+            // Boşluk kontrolü
+            if (username.includes(' ') || password.includes(' ')) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre boşluk içeremez.';
+                return;
+            }
+
+            // Minimum karakter kontrolü
+            if (username.length < 5 || password.length < 5) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre en az 5 karakter olmalıdır.';
+                return;
+            }
+
+            // Kullanıcı bilgilerini kontrol etme
+            let storedUsername = localStorage.getItem('username');
+            let storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                alert('Giriş başarılı!');
+                localStorage.setItem('isLoggedIn', 'true'); // Oturum açık olarak işaretle
+                closeModal();
+                checkLogin(); // Giriş yapıldıktan sonra header'ı güncelle
+            } else {
+                errorMessage.textContent = 'Kullanıcı adı veya şifre hatalı.';
+            }
+        });
+
+        // Kayıt formu gönderildiğinde çalışacak fonksiyon
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('registerUsername').value.trim();
+            let password = document.getElementById('registerPassword').value.trim();
+            let errorMessage = document.getElementById('registerErrorMessage');
+
+            // Boşluk kontrolü
+            if (username.includes(' ') || password.includes(' ')) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre boşluk içeremez.';
+                return;
+            }
+
+            // Minimum karakter kontrolü
+            if (username.length < 5 || password.length < 5) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre en az 5 karakter olmalıdır.';
+                return;
+            }
+
+            // Kullanıcı adının daha önce alınıp alınmadığını kontrol etme
+            let storedUsername = localStorage.getItem('username');
+            if (storedUsername === username) {
+                errorMessage.textContent = 'Bu kullanıcı adı zaten alınmış.';
+                return;
+            }
+
+            // Kullanıcı bilgilerini localStorage'a kaydetme
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            localStorage.setItem('isLoggedIn', 'true'); // Oturum açık olarak işaretle
+
+            alert('Kayıt başarılı! Giriş yapabilirsiniz.');
+            closeModal();
+            switchToLogin(); // Kayıt olduktan sonra giriş modalına geç
+        });
+
+        // Sayfa yüklendiğinde kullanıcı giriş durumunu kontrol etme
+        function checkLogin() {
+            let isLoggedIn = localStorage.getItem('isLoggedIn');
+            let username = localStorage.getItem('username');
+            let authButtons = document.getElementById('authButtons');
+
+            if (isLoggedIn === 'true' && username) {
+                authButtons.innerHTML = `Hoşgeldiniz, ${username} <button onclick="logout()">Çıkış Yap</button>`;
+            } else {
+                authButtons.innerHTML = `
+                    <button onclick="openLoginModal()">Giriş Yap</button>
+                    <button onclick="openRegisterModal()">Kayıt Ol</button>
+                `;
+            }
+        }
+
+        // Çıkış yapma fonksiyonu
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false'); // Oturumu kapat
+            checkLogin(); // Header'ı güncelle
+            alert('Çıkış yapıldı.');
+        }
+
+        // Ürün arama fonksiyonu
+        function searchProducts() {
+            let searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            let products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                let productName = product.querySelector('h3').textContent.toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    // Sayfa yüklendiğinde oturum kontrolü
+    document.addEventListener('DOMContentLoaded', () => {
+        const kullaniciBilgi = document.getElementById("kullanici-bilgi");
+        const cikisLink = document.getElementById("cikis-link");
+        const girisLink = document.getElementById("giris-link");
+        const kayitLink = document.getElementById("kayit-link");
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        if (currentUser) {
+            kullaniciBilgi.textContent = `Hoş geldiniz, ${currentUser.username}`;
+            kullaniciBilgi.style.display = 'inline';
+            cikisLink.style.display = 'inline';
+            girisLink.style.display = 'none';
+            kayitLink.style.display = 'none';
+        } else {
+            kullaniciBilgi.style.display = 'none';
+            cikisLink.style.display = 'none';
+            girisLink.style.display = 'inline';
+            kayitLink.style.display = 'inline';
+        }
+    });
+
+    // Çıkış Yapma
+    document.getElementById('cikis-link').addEventListener('click', () => {
+        localStorage.removeItem('currentUser');
+        window.location.reload(); // Sayfayı yenile
+    });
+    </script>
+</body>
+</html>

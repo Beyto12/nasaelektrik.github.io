@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #003554;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .login-form {
+            background: #006494;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-form button {
+            background: white;
+            color: #003554;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .login-form button:hover {
+            background: aqua;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>Giriş Yap</h2>
+        <form id="loginForm">
+            <label for="username">Kullanıcı Adı:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Şifre:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Giriş Yap</button>
+		    <button onclick="window.location.href='kayit.html'">Kayıt Ol</button>
+        </form>
+        <div id="errorMessage" class="error-message"></div>
+		
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value.trim();
+            let errorMessage = document.getElementById('errorMessage');
+
+            // Boşluk kontrolü
+            if (username.includes(' ') || password.includes(' ')) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre boşluk içeremez.';
+                return;
+            }
+
+            // Minimum karakter kontrolü
+            if (username.length < 5 || password.length < 5) {
+                errorMessage.textContent = 'Kullanıcı adı ve şifre en az 5 karakter olmalıdır.';
+                return;
+            }
+
+            // Basit bir kullanıcı kontrolü
+            let storedUsername = localStorage.getItem('username');
+            let storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                alert('Giriş başarılı!');
+                window.location.href = 'anasayfa.html';
+            } else {
+                errorMessage.textContent = 'Kullanıcı adı veya şifre hatalı.';
+            }
+        });
+    </script>
+</body>
+</html>

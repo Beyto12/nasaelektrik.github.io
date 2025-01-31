@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepetim - NASA Elektrik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #003554;
+            color: white;
+            text-align: center;
+        }
+        .header {
+            background: #006494;
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .header img {
+            width: 50px;
+        }
+        .nav {
+            background: #003554;
+            padding: 10px;
+        }
+        .nav a {
+            color: #E2E2E2;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .nav a:hover {
+            color: aqua;
+        }
+        .cart-container {
+            padding: 20px;
+        }
+        .cart-item {
+            background: white;
+            color: black;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 600px;
+        }
+        .cart-item img {
+            width: 50px;
+            border-radius: 10px;
+        }
+        .cart-item button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cart-total {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .checkout-button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .checkout-button:hover {
+            background: darkgreen;
+        }
+        .footer {
+            background: #006494;
+            padding: 15px;
+            border-radius: 0 0 20px 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body onload="loadCart()">
+    <div class="header">
+        <img src="pictures/nasa.png" alt="NASA Elektrik">
+        <h1>NASA ELEKTRİK - Sepetim</h1>
+        <div class="auth-buttons" id="authButtons">
+            <button onclick="window.location.href='giris.html'">Giriş Yap</button>
+            <button onclick="window.location.href='kayit.html'">Kayıt Ol</button>
+        </div>
+    </div>
+    
+    <div class="nav">
+        <a href="anasayfa.html">Anasayfa</a> |
+        <a href="hakkimda.html">Hakkımızda</a> |
+        <a href="iletisim.html">İletişim</a>
+    </div>
+
+    <div class="cart-container">
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal"></div>
+        <button class="checkout-button" onclick="checkout()">Siparişi Tamamla</button>
+    </div>
+    
+    <div class="footer">2016-2025 Nasa Elektrik - AY YAPIM</div>
+
+    <script>
+        // Sepet verilerini localStorage'dan yükle
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Sepeti yükle
+        function loadCart() {
+            let cartItems = document.getElementById('cartItems');
+            let cartTotal = document.getElementById('cartTotal');
+            let total = 0;
+
+            // Sepet boşsa mesaj göster
+            if (cart.length === 0) {
+                cartItems.innerHTML = "<p>Sepetinizde ürün bulunmamaktadır.</p>";
+                cartTotal.innerText = "Toplam: 0 TL";
+                return;
+            }
+
+            // Sepet ürünlerini listele
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                let itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <img src="pictures/${item.name.toLowerCase().replace(/ /g, '')}.png" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.price} TL</p>
+                    <button onclick="removeFromCart(${index})">Kaldır</button>
+                `;
+                cartItems.appendChild(itemElement);
+                total += item.price;
+            });
+
+            // Toplam fiyatı göster
+            cartTotal.innerText = `Toplam: ${total} TL`;
+        }
+
+        // Sepetten ürün kaldır
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart(); // Sepeti yeniden yükle
+        }
+
+        // Siparişi tamamla
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Sepetinizde ürün bulunmamaktadır.');
+                return;
+            }
+            alert('Siparişiniz alındı! Toplam Tutar: ' + cart.reduce((sum, item) => sum + item.price, 0) + ' TL');
+            localStorage.removeItem('cart'); // Sepeti temizle
+            window.location.href = 'anasayfa.html'; // Anasayfaya yönlendir
+        }
+    </script>
+</body>
+</html>

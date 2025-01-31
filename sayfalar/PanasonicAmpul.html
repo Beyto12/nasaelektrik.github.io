@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Elektrik</title>
+    <style>
+        /* Genel Stil */
+        body {
+            background: #003554;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Responsive Tasarım */
+        @media only screen and (min-width: 960px) { /* PC */
+            .bas { width: 1500px; height: 100px; font-size: 25px; }
+            .bilgi { width: 1500px; height: 40px; font-size: 25px; }
+            .icerik { width: 1460px; height: auto; display: flex; flex-wrap: wrap; gap: 10px; }
+            .altkisim { width: 1500px; height: 35px; font-size: 20px; }
+        }
+
+        @media only screen and (min-width: 660px) and (max-width: 959px) { /* TABLET */
+            .bas { width: 700px; height: 60px; font-size: 15px; }
+            .bilgi { width: 700px; height: 30px; font-size: 20px; }
+            .icerik { width: 680px; height: auto; }
+            .altkisim { width: 700px; height: 50px; }
+        }
+
+        @media only screen and (max-width: 659px) { /* MOBİL */
+            .bas { width: 100%; height: auto; font-size: 15px; }
+            .bilgi { width: 100%; height: auto; font-size: 18px; }
+            .icerik { width: 100%; height: auto; padding: 10px; }
+            .altkisim { width: 100%; height: auto; font-size: 16px; }
+        }
+
+        /* Diğer Ürünler Stili */
+        .diger-urunler {
+            width: 100%;
+            border: solid 3px #EC1B1F;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 24px;
+            margin-top: 15px;
+            padding: 10px;
+            background: white;
+        }
+
+        .urunler-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .urun {
+            width: 150px;
+            height: 200px;
+            background: white;
+            border: solid 2px black;
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .urun:hover {
+            transform: scale(1.05);
+        }
+
+        .urun img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .urun-bilgi {
+            background: #003554;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 0 0 12px 12px;
+			height: 100%
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Başlık -->
+    <div class="bas" style="background-color:#006494; margin: auto; border-radius: 20px 20px 0 0;">
+        <a href="anasayfa.HTML">
+            <img src="pictures/nasa.png" style="float: left; margin-top: 7px; width: 10%;">
+        </a>
+        <div style="float: left; color: white; padding-top: 20px;">NASA ELEKTRİK<br>Beyoğlu Okmeydanı Şube</div>
+    </div>
+
+    <!-- Bilgi Alanı -->
+    <div class="bilgi" style="background-color: #003554; margin-top: 10px; margin: auto; text-align: center; padding-top: 10px; color: aqua;">
+        <a href="anasayfa.HTML" style="color: white; text-decoration: none;" target="_blank">Anasayfa</a> |
+        <a href="hakkimda.HTML" style="color: white; text-decoration: none;" target="_blank">Hakkımızda</a> |
+        <a href="iletisim.HTML" style="color: white; text-decoration: none;" target="_blank">İletişim</a>
+    </div>
+
+    <!-- İçerik Alanı -->
+    <div class="icerik" style="background-color: white; margin-top: 5px; margin: auto; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+
+        <!-- Üst İçerik: Ürün Resmi ve Açıklama -->
+        <div style="display: flex; width: 100%; justify-content: center; gap: 20px; align-items: flex-start;">
+
+            <!-- Ürün Resmi ve Diğer Ürünler Bölümü -->
+            <div style="display: flex; flex-direction: column; width: 40%; align-items: center;">
+                <!-- Ürün Resmi -->
+                <div style="width: 100%; border: solid 3px #006494; border-radius: 15px; background: white;">
+                    <img src="pictures/panasonicampul.jpg" width="100%" height="400px" style="border-radius: 15px; margin-top: 15px;">
+                </div>
+
+                <!-- Diğer Ürünler -->
+                <div class="diger-urunler">
+                    <b>Diğer Ürünler</b>
+                    <div class="urunler-container">
+                        <a href="arapuar.HTML" target="_blank" class="urun">
+                            <img src="pictures/viarapuar.png" alt="Viko Arapuar">
+                            <div class="urun-bilgi">Viko Arapuar<br>50 TL</div>
+                        </a>
+                        <a href="temaslikontrol.html" target="_blank" class="urun">
+                            <img src="pictures/temaskntrl.jpg" alt="Temaslı Kontrol Kalemi">
+                            <div class="urun-bilgi">Temaslı Kontrol Kalemi<br>40 TL</div>
+                        </a>
+                        <a href="vikouclufis.html" target="_blank" class="urun">
+                            <img src="pictures/vikouclufiş.png" alt="Viko Üçlü Priz">
+                            <div class="urun-bilgi">Viko Üçlü Priz<br>200 TL</div>
+                        </a>
+                        <a href="vikoerkfiş.html" target="_blank" class="urun">
+                            <img src="pictures/vikoerkfiş.png" alt="Viko Mimoza Erkek Fiş">
+                            <div class="urun-bilgi">Viko Mimoza Erkek Fiş<br>30 TL</div>
+                        </a>
+						<a href="VikoTprkerkFis.html" target="_blank" class="urun">
+                            <img src="pictures/vikotprkerkfis.jpg" alt="Viko Mimoza Erkek Fiş">
+                            <div class="urun-bilgi">Viko Topraklı Erkek Fiş<br>50 TL</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ürün Açıklaması ve Satın Alma Bölümü -->
+            <div style="width: 56%; height: auto; background: white; color: black;">
+                <div style="font-size: 40px; padding-left: 15px; padding-top: 15px;">Panasonic 8,5W Beyaz LED Ampül</div>
+                <div style="font-size: 24px; padding-left: 15px; padding-top: 15px;">
+                    <b>Ürün Açıklaması:</b> Panasonic 8,5W Beyaz LED Ampul, yüksek enerji tasarrufu sağlayan ve uzun ömürlü bir aydınlatma çözümüdür.
+                    <br><br>
+                    <b>Öne Çıkan Özellikler:</b><br>
+                    ✅ Düşük Enerji Tüketimi: 8,5W gücünde olup 60W geleneksel ampul parlaklığı sunar.<br>
+                    ✅ Uzun Ömür: 15.000 saat kullanım ömrüyle sık değişim gerektirmez.<br>
+                    ✅ Doğal Beyaz Işık: 6500K renk sıcaklığı ile ferah ve konforlu bir ortam yaratır.<br>
+                    ✅ Geniş Kullanım Alanı: Ev, ofis, mağaza ve daha birçok alanda ideal aydınlatma sağlar.<br>
+                    ✅ Anında Tam Parlaklık: Açıldığı anda maksimum ışık seviyesine ulaşır, göz alıcı bir aydınlatma sunar.<br><br>
+                    
+                    <b>Teknik Özellikler:</b><br>
+                    🔹 Güç Tüketimi: 8,5W<br>
+                    🔹 Işık Rengi: Beyaz (6500K)<br>
+                    🔹 Duy Tipi: E27<br>
+                    🔹 Gerilim: 220-240V<br>
+                    🔹 Ömür: 15.000 saat<br>
+                    🔹 Işık Akısı: 806 Lümen<br>
+                    <br>
+                    🛒 <b>Hemen sipariş verin ve ekonomik aydınlatmanın keyfini çıkarın!</b> 🚀
+                </div>
+
+                <!-- Fiyat ve Sepete Ekle -->
+                <div style="display: flex; align-items: center; margin-top: 5%; padding-left: 15px;">
+                    <div style="display: flex; flex-direction: column; align-items: center; font-size: 40px; color: green; margin-right: 30px;">
+                        <del style="color: red; font-size: 30px;">65 TL</del>
+                        <span>60 TL</span>
+                    </div>
+
+                    <select style="width: 75px; height: 45px; text-align: center; border-radius: 15px; font-size: 15px; margin-right: 30px;">
+                        <option value="1">Adet:1</option>
+                        <option value="2">Adet:2</option>
+                        <option value="3">Adet:3</option>
+                        <option value="4">Adet:4</option>
+                        <option value="5">Adet:5</option>
+                        <option value="6">Adet:6</option>
+                        <option value="7">Adet:7</option>
+                        <option value="8">Adet:8</option>
+                        <option value="9">Adet:9</option>
+                        <option value="10">Adet:10</option>
+                    </select>
+
+                    <input type="button" style="height: 45px; border-radius: 15px; font-size: 20px;" value="Sepete Ekle">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alt Kısım -->
+    <div class="altkisim" style="background-color:#006494; margin-top: 5px; border-radius: 0 0 20px 20px; margin: auto; text-align: center; color: antiquewhite; padding-top: 15px;">
+        2016-2025 Nasa Elektrik - AY YAPIM
+    </div>
+
+
+</body>
+</html>
